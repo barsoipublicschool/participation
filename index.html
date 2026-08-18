@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Participation Certificate Generator - Barsoi Public School</title>
+<title>Certificate of Participation - Barsoi Public School</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@1,600;1,700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
-        --primary: #0f2b48;
+        --primary-blue: #0b2545;
+        --border-blue: #1d3557;
         --gold: #c59b27;
-        --gold-light: #f4e8c1;
         --dark-bg: #008000;
     }
 
     body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Times New Roman', Times, serif;
         background-color: var(--dark-bg);
         margin: 0;
         padding: 20px 0;
-        color: #333;
+        color: #000;
     }
 
     .top-header {
+        font-family: 'Montserrat', sans-serif;
         background-color: #FFA500;
         color: #000;
         text-align: center;
@@ -36,6 +37,7 @@
 
     /* Form Design */
     #form-container {
+        font-family: 'Montserrat', sans-serif;
         max-width: 500px;
         margin: 0 auto;
         background: #fff;
@@ -45,7 +47,7 @@
     }
     #form-container h2 {
         text-align: center;
-        color: var(--primary);
+        color: var(--primary-blue);
         font-family: 'Cinzel', serif;
         margin-bottom: 20px;
         border-bottom: 2px solid var(--gold);
@@ -63,8 +65,8 @@
     }
     .btn-submit {
         width: 100%;
-        background-color: var(--primary);
-        color: var(--gold-light);
+        background-color: var(--primary-blue);
+        color: #fff;
         padding: 12px;
         border: 1px solid var(--gold);
         border-radius: 4px;
@@ -74,33 +76,35 @@
         transition: 0.3s;
         margin-top: 10px;
     }
-    .btn-submit:hover { background-color: #081a2d; }
+    .btn-submit:hover { background-color: #051427; }
 
-    /* Certificate Layout */
+    /* Classic Certificate Layout */
     .cert-wrapper {
         display: none;
-        width: 850px;
-        margin: 20px auto;
+        width: 900px;
+        margin: 10px auto;
         background: #fff;
-        padding: 15px;
+        padding: 18px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        box-sizing: border-box;
     }
 
-    .cert-border {
-        border: 4px solid var(--gold);
-        padding: 5px;
-        position: relative;
+    /* Ornamental Blue Border */
+    .cert-outer-border {
+        border: 12px solid #1a365d;
+        padding: 6px;
+        background-image: repeating-linear-gradient(45deg, #1d3557, #1d3557 10px, #0f2b48 10px, #0f2b48 20px);
     }
 
     .cert-inner-border {
-        border: 2px solid var(--primary);
+        border: 2px solid #1a365d;
         padding: 30px 40px;
+        background: #ffffff;
         position: relative;
-        background: #fff;
         overflow: hidden;
     }
 
-    /* Watermark Background */
+    /* Background Watermark */
     .cert-inner-border::before {
         content: "";
         position: absolute;
@@ -109,113 +113,130 @@
         transform: translate(-50%, -50%);
         width: 380px;
         height: 380px;
-        background-image: url('bps.jpeg');
+        background-image: url('bps.jpeg'), url('https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w500');
         background-repeat: no-repeat;
         background-position: center;
         background-size: contain;
-        opacity: 0.08;
+        opacity: 0.06;
         pointer-events: none;
         z-index: 0;
     }
 
+    /* Header Styling */
     .cert-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 2px double var(--gold);
-        padding-bottom: 15px;
+        margin-bottom: 20px;
         position: relative;
         z-index: 1;
     }
-    .cert-logo { width: 90px; height: auto; }
-    .header-text { text-align: center; flex: 1; padding: 0 10px; }
-    
+
+    .cert-logo { width: 95px; height: 95px; object-fit: contain; }
+    .header-text { text-align: center; flex: 1; padding: 0 15px; }
+
     .school-title {
         font-family: 'Cinzel', serif;
-        color: var(--primary);
-        font-size: 28px;
-        font-weight: 800;
+        color: #000;
+        font-size: 32px;
+        font-weight: 900;
         margin: 0;
-        letter-spacing: 1px;
-    }
-    .trust-title {
-        color: var(--gold);
-        font-size: 12px;
-        font-weight: 700;
         letter-spacing: 1.5px;
-        margin: 3px 0;
+        text-transform: uppercase;
     }
+
+    .trust-title {
+        color: #000;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin: 4px 0;
+        font-family: 'Montserrat', sans-serif;
+    }
+
     .sub-details {
+        font-family: 'Times New Roman', serif;
         font-size: 11px;
-        font-weight: 600;
-        color: #444;
+        color: #222;
         line-height: 1.3;
     }
 
-    .cert-title-box { text-align: center; margin: 30px 0 25px 0; position: relative; z-index: 1; }
-    .cert-title {
-        font-family: 'Cinzel', serif;
-        color: var(--primary);
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        border-bottom: 2px solid var(--gold);
-        padding-bottom: 4px;
-        display: inline-block;
-    }
-
-    .cert-body {
-        font-family: 'Times New Roman', Times, serif;
-        line-height: 2.1;
-        font-size: 18px;
-        color: #111;
+    /* Title Block */
+    .cert-title-box {
         text-align: center;
+        margin: 25px 0 20px 0;
         position: relative;
         z-index: 1;
     }
-    
-    .student-name {
-        font-family: 'Great Vibes', cursive, 'Times New Roman';
-        font-size: 34px;
-        color: var(--primary);
-        font-weight: bold;
+
+    .cert-title {
+        font-family: 'Cinzel', serif;
+        color: #000;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        border-bottom: 1px solid #888;
+        padding-bottom: 5px;
         display: inline-block;
-        border-bottom: 1px dashed var(--gold);
+    }
+
+    /* Body Details */
+    .cert-body {
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.9;
+        font-size: 19px;
+        color: #000;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin-top: 15px;
+    }
+
+    .student-name {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-style: italic;
+        font-size: 28px;
+        color: #000;
+        font-weight: 700;
+        display: inline-block;
+        border-bottom: 2px solid #000;
         padding: 0 15px;
-        margin: 5px 0;
+        margin: 2px 0;
     }
 
     .programme-title {
         font-weight: bold;
-        color: #b22222;
-        font-size: 20px;
+        color: #a71d2a;
+        font-size: 21px;
+        margin: 4px 0;
     }
 
     .fill-data {
         font-weight: bold;
-        color: var(--primary);
-        border-bottom: 1px dashed var(--gold);
-        padding: 0 6px;
+        color: #000;
     }
 
+    /* Footer Signatures */
     .cert-footer {
-        margin-top: 60px;
+        margin-top: 50px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        font-weight: 700;
         font-size: 14px;
         position: relative;
         z-index: 1;
+        padding: 0 20px;
     }
-    .sign-box { text-align: center; }
-    .sign-line { width: 160px; border-top: 1px solid #000; margin-bottom: 5px; }
 
-    /* Print Controls */
+    .sign-box { text-align: center; }
+    .sign-line { width: 150px; border-top: 1px solid #000; margin-bottom: 5px; }
+    .sign-title { font-weight: bold; font-size: 13px; color: #111; }
+
+    /* Print Setup */
     @media print {
         @page {
-            size: letter;
-            margin: 8mm 12mm 8mm 12mm;
+            size: landscape;
+            margin: 5mm;
         }
         * {
             -webkit-print-color-adjust: exact !important;
@@ -246,11 +267,11 @@
     <form onsubmit="generateCertificate(event)">
         <div class="input-group">
             <label>Student Name:</label>
-            <input type="text" id="in-name" placeholder="Enter Full Name" required>
+            <input type="text" id="in-name" placeholder="e.g. Nehal Ahmad" required>
         </div>
         <div class="input-group">
             <label>Father's Name:</label>
-            <input type="text" id="in-father" placeholder="Enter Father's Name" required>
+            <input type="text" id="in-father" placeholder="e.g. Rahil Ahmad" required>
         </div>
         <div class="input-group">
             <label>Class:</label>
@@ -258,11 +279,11 @@
         </div>
         <div class="input-group">
             <label>Roll No:</label>
-            <input type="text" id="in-roll" placeholder="Enter Roll Number" required>
+            <input type="text" id="in-roll" placeholder="e.g. 25" required>
         </div>
         <div class="input-group">
             <label>Programme Name:</label>
-            <input type="text" id="in-programme" placeholder="e.g. Science Exhibition / Annual Sports" required>
+            <input type="text" id="in-programme" placeholder="e.g. Science Club / Annual Sports" required>
         </div>
         <div class="input-group">
             <label>Duration:</label>
@@ -272,22 +293,22 @@
     </form>
 </div>
 
-<!-- Certificate Output -->
+<!-- Certificate Preview -->
 <div id="certificate-output" class="cert-wrapper">
-    <div class="cert-border">
+    <div class="cert-outer-border">
         <div class="cert-inner-border">
             
             <div class="cert-header">
-                <img src="bps.jpeg" class="cert-logo" alt="Logo">
+                <img src="bps.jpeg" onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w300';" class="cert-logo" alt="School Logo">
                 <div class="header-text">
                     <h1 class="school-title">BARSOI PUBLIC SCHOOL</h1>
-                    <div class="trust-title">UNDER THE AEGIS OF ZAHIR EDUCATIONAL & WELFARE TRUST</div>
+                    <div class="trust-title">(UNDER THE AEGIS OF ZAHIR EDUCATIONAL & WELFARE TRUST)</div>
                     <div class="sub-details">
                         NEHAR NAGAR, BARSOI, KATIHAR, BIHAR - 854317<br>
                         Regd. No. SSA/070/14 &nbsp;|&nbsp; Curriculum – CBSE (NCERT)
                     </div>
                 </div>
-                <div style="width: 90px;"></div>
+                <img src="bps.png" onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w300';" class="cert-logo" style="opacity: 0.8;" alt="Emblem">
             </div>
 
             <div class="cert-title-box">
@@ -296,13 +317,13 @@
 
             <div class="cert-body">
                 This is to certify that<br>
-                <div class="student-name" id="out-name">Student Name</div><br>
-                Son/Daughter of <span id="out-father" class="fill-data"></span>, 
-                student of Class <span id="out-class" class="fill-data"></span> 
-                (Roll No. <span id="out-roll" class="fill-data"></span>)<br>
-                has actively participated in 
-                <div class="programme-title" id="out-programme">Programme Name</div>
-                held from <span id="out-duration" class="fill-data"></span>.
+                <div class="student-name" id="out-name">Mr Nehal Ahmad</div><br>
+                Son/Daughter of <span id="out-father" class="fill-data">RAHIL AHMAD</span>, 
+                student of Class <span id="out-class" class="fill-data">7th</span> 
+                (Roll No. <span id="out-roll" class="fill-data">25</span>)<br>
+                actively participated and completed<br>
+                <div class="programme-title" id="out-programme">"Science Club"</div>
+                held from <span id="out-duration" class="fill-data">5th Aug to 7th Aug 2026</span>.
                 <br><br>
                 We appreciate his/her active involvement and outstanding performance.
             </div>
@@ -310,18 +331,18 @@
             <div class="cert-footer">
                 <div class="sign-box">
                     <div class="sign-line"></div>
-                    EVENT COORDINATOR
+                    <div class="sign-title">EVENT COORDINATOR</div>
                 </div>
                 <div class="sign-box">
                     <div class="sign-line"></div>
-                    PRINCIPAL
+                    <div class="sign-title">PRINCIPAL</div>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div style="margin-top:30px; text-align:center;" class="print-btn-div">
+    <div style="margin-top:25px; text-align:center;" class="print-btn-div">
         <button onclick="if(window.AndroidPrint){ AndroidPrint.triggerPrint(); } else { window.print(); }" style="padding:12px 30px; background:#008000; color:white; border:none; cursor:pointer; font-weight:bold; border-radius:5px;">PRINT / SAVE PDF</button>
         <button onclick="location.reload()" style="padding:10px 20px; background:#666; color:white; border:none; margin-left:10px; cursor:pointer; border-radius:4px;">BACK</button>
     </div>
@@ -330,7 +351,13 @@
 <script>
     function generateCertificate(e) {
         e.preventDefault();
-        document.getElementById('out-name').innerText = document.getElementById('in-name').value;
+        
+        let nameVal = document.getElementById('in-name').value;
+        if(!nameVal.toLowerCase().startsWith('mr') && !nameVal.toLowerCase().startsWith('ms')) {
+            nameVal = 'Mr/Ms ' + nameVal;
+        }
+        
+        document.getElementById('out-name').innerText = nameVal;
         document.getElementById('out-father').innerText = document.getElementById('in-father').value.toUpperCase();
         document.getElementById('out-class').innerText = document.getElementById('in-class').value;
         document.getElementById('out-roll').innerText = document.getElementById('in-roll').value;
@@ -339,7 +366,7 @@
 
         Swal.fire({
             icon: 'success',
-            title: 'Certificate Ready!',
+            title: 'Certificate Generated!',
             timer: 800,
             showConfirmButton: false
         }).then(() => {
