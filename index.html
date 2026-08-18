@@ -38,7 +38,7 @@
     /* Form Design */
     #form-container {
         font-family: 'Montserrat', sans-serif;
-        max-width: 520px;
+        max-width: 500px;
         margin: 0 auto;
         background: #fff;
         padding: 25px 30px;
@@ -89,7 +89,7 @@
         box-sizing: border-box;
     }
 
-    /* Pragati College Style Pattern Outer Border */
+    /* Pattern Outer Border */
     .cert-outer-border {
         border: 10px solid #1a365d;
         padding: 6px;
@@ -218,7 +218,7 @@
 
     /* Footer Signatures */
     .cert-footer {
-        margin-top: 40px;
+        margin-top: 30px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
@@ -237,7 +237,7 @@
     }
 
     .sign-img {
-        height: 45px;
+        height: 50px;
         max-width: 150px;
         object-fit: contain;
         margin-bottom: 2px;
@@ -281,7 +281,7 @@
     <h2>Participation Certificate</h2>
     <form onsubmit="generateCertificate(event)">
         <div class="input-group">
-            <label>Student Name (e.g. Mr Teja Sirapu or Nehal Ahmad):</label>
+            <label>Student Name:</label>
             <input type="text" id="in-name" placeholder="Enter Full Name" required>
         </div>
         <div class="input-group">
@@ -303,14 +303,6 @@
         <div class="input-group">
             <label>Duration:</label>
             <input type="text" id="in-duration" placeholder="e.g. 5th Aug to 7th Aug 2026" required>
-        </div>
-        <div class="input-group">
-            <label>Coordinator Sign (Google Drive ID / URL) [Optional]:</label>
-            <input type="text" id="in-coord-sign" placeholder="Paste Drive ID or Image URL">
-        </div>
-        <div class="input-group">
-            <label>Principal Sign (Google Drive ID / URL) [Optional]:</label>
-            <input type="text" id="in-principal-sign" placeholder="Paste Drive ID or Image URL">
         </div>
         <button type="submit" class="btn-submit">GENERATE CERTIFICATE</button>
     </form>
@@ -374,16 +366,10 @@
 </div>
 
 <script>
-    function parseDriveUrl(input) {
-        if (!input) return '';
-        input = input.trim();
-        if (input.includes('id=')) {
-            return input.split('id=')[1].split('&')[0];
-        } else if (input.includes('/d/')) {
-            return input.split('/d/')[1].split('/')[0];
-        }
-        return input;
-    }
+    // CODE KE ANDAR SIGNATURE CONFIGURATION
+    // Yahan apni Google Drive Image ID ya direct URL daal dein
+    const COORD_SIGN_ID = "";     // Example: "1A2b3C4d5E6f7G..."
+    const PRINCIPAL_SIGN_ID = ""; // Example: "1X2y3Z4a5B6c7D..."
 
     function generateCertificate(e) {
         e.preventDefault();
@@ -395,24 +381,19 @@
         document.getElementById('out-programme').innerText = `"${document.getElementById('in-programme').value}"`;
         document.getElementById('out-duration').innerText = document.getElementById('in-duration').value;
 
-        // Signature Images Handling
-        let coordId = parseDriveUrl(document.getElementById('in-coord-sign').value);
-        let principalId = parseDriveUrl(document.getElementById('in-principal-sign').value);
-
+        // Apply Signatures from Code Variables
         let coordImg = document.getElementById('out-coord-img');
-        if (coordId) {
+        if (COORD_SIGN_ID.trim() !== "") {
+            let coordId = COORD_SIGN_ID.includes('id=') ? COORD_SIGN_ID.split('id=')[1].split('&')[0] : COORD_SIGN_ID;
             coordImg.src = `https://drive.google.com/thumbnail?id=${coordId}&sz=w300`;
             coordImg.style.display = 'block';
-        } else {
-            coordImg.style.display = 'none';
         }
 
         let principalImg = document.getElementById('out-principal-img');
-        if (principalId) {
-            principalImg.src = `https://drive.google.com/thumbnail?id=${principalId}&sz=w300`;
+        if (PRINCIPAL_SIGN_ID.trim() !== "") {
+            let principalId = PRINCIPAL_SIGN_ID.includes('id=') ? PRINCIPAL_SIGN_ID.split('id=')[1].split('&')[0] : PRINCIPAL_SIGN_ID;
+            principalImg.src = `https://drive.google.com/thumbnail?id=$14JG21SYtSpghaukrY6_QTB-LCYPZ8gkE&sz=w300`;
             principalImg.style.display = 'block';
-        } else {
-            principalImg.style.display = 'none';
         }
 
         Swal.fire({
