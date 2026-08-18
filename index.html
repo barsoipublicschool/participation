@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificate of Participation - Barsoi Public School</title>
+<title>Participation Certificate Generator - Barsoi Public School</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@1,600;1,700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -38,7 +38,7 @@
     /* Form Design */
     #form-container {
         font-family: 'Montserrat', sans-serif;
-        max-width: 500px;
+        max-width: 520px;
         margin: 0 auto;
         background: #fff;
         padding: 25px 30px;
@@ -78,22 +78,22 @@
     }
     .btn-submit:hover { background-color: #051427; }
 
-    /* Classic Certificate Layout */
+    /* Certificate Layout */
     .cert-wrapper {
         display: none;
         width: 900px;
         margin: 10px auto;
         background: #fff;
-        padding: 18px;
+        padding: 16px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         box-sizing: border-box;
     }
 
-    /* Ornamental Blue Border */
+    /* Pragati College Style Pattern Outer Border */
     .cert-outer-border {
-        border: 12px solid #1a365d;
+        border: 10px solid #1a365d;
         padding: 6px;
-        background-image: repeating-linear-gradient(45deg, #1d3557, #1d3557 10px, #0f2b48 10px, #0f2b48 20px);
+        background-image: repeating-linear-gradient(45deg, #1d3557, #1d3557 12px, #ffffff 12px, #ffffff 18px, #0f2b48 18px, #0f2b48 30px);
     }
 
     .cert-inner-border {
@@ -104,7 +104,7 @@
         overflow: hidden;
     }
 
-    /* Background Watermark */
+    /* Watermark Background */
     .cert-inner-border::before {
         content: "";
         position: absolute;
@@ -180,7 +180,7 @@
         display: inline-block;
     }
 
-    /* Body Details */
+    /* Body Content */
     .cert-body {
         font-family: 'Times New Roman', Times, serif;
         line-height: 1.9;
@@ -218,18 +218,33 @@
 
     /* Footer Signatures */
     .cert-footer {
-        margin-top: 50px;
+        margin-top: 40px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
         font-size: 14px;
         position: relative;
         z-index: 1;
-        padding: 0 20px;
+        padding: 0 30px;
     }
 
-    .sign-box { text-align: center; }
-    .sign-line { width: 150px; border-top: 1px solid #000; margin-bottom: 5px; }
+    .sign-box { 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 170px;
+    }
+
+    .sign-img {
+        height: 45px;
+        max-width: 150px;
+        object-fit: contain;
+        margin-bottom: 2px;
+        display: none;
+    }
+
+    .sign-line { width: 160px; border-top: 1px solid #000; margin-bottom: 5px; }
     .sign-title { font-weight: bold; font-size: 13px; color: #111; }
 
     /* Print Setup */
@@ -266,8 +281,8 @@
     <h2>Participation Certificate</h2>
     <form onsubmit="generateCertificate(event)">
         <div class="input-group">
-            <label>Student Name:</label>
-            <input type="text" id="in-name" placeholder="e.g. Nehal Ahmad" required>
+            <label>Student Name (e.g. Mr Teja Sirapu or Nehal Ahmad):</label>
+            <input type="text" id="in-name" placeholder="Enter Full Name" required>
         </div>
         <div class="input-group">
             <label>Father's Name:</label>
@@ -289,11 +304,19 @@
             <label>Duration:</label>
             <input type="text" id="in-duration" placeholder="e.g. 5th Aug to 7th Aug 2026" required>
         </div>
+        <div class="input-group">
+            <label>Coordinator Sign (Google Drive ID / URL) [Optional]:</label>
+            <input type="text" id="in-coord-sign" placeholder="Paste Drive ID or Image URL">
+        </div>
+        <div class="input-group">
+            <label>Principal Sign (Google Drive ID / URL) [Optional]:</label>
+            <input type="text" id="in-principal-sign" placeholder="Paste Drive ID or Image URL">
+        </div>
         <button type="submit" class="btn-submit">GENERATE CERTIFICATE</button>
     </form>
 </div>
 
-<!-- Certificate Preview -->
+<!-- Certificate Output -->
 <div id="certificate-output" class="cert-wrapper">
     <div class="cert-outer-border">
         <div class="cert-inner-border">
@@ -308,7 +331,7 @@
                         Regd. No. SSA/070/14 &nbsp;|&nbsp; Curriculum – CBSE (NCERT)
                     </div>
                 </div>
-                <img src="bps.png" onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w300';" class="cert-logo" style="opacity: 0.8;" alt="Emblem">
+                <img src="bps.jpeg" onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=18zW3xG-nsyBUrn2FdLLIzoUPaSZVura3&sz=w300';" class="cert-logo" style="opacity: 0.8;" alt="Emblem">
             </div>
 
             <div class="cert-title-box">
@@ -317,23 +340,25 @@
 
             <div class="cert-body">
                 This is to certify that<br>
-                <div class="student-name" id="out-name">Mr Nehal Ahmad</div><br>
-                Son/Daughter of <span id="out-father" class="fill-data">RAHIL AHMAD</span>, 
-                student of Class <span id="out-class" class="fill-data">7th</span> 
-                (Roll No. <span id="out-roll" class="fill-data">25</span>)<br>
+                <div class="student-name" id="out-name">Student Name</div><br>
+                Son/Daughter of <span id="out-father" class="fill-data"></span>, 
+                student of Class <span id="out-class" class="fill-data"></span> 
+                (Roll No. <span id="out-roll" class="fill-data"></span>)<br>
                 actively participated and completed<br>
-                <div class="programme-title" id="out-programme">"Science Club"</div>
-                held from <span id="out-duration" class="fill-data">5th Aug to 7th Aug 2026</span>.
+                <div class="programme-title" id="out-programme">"Programme Name"</div>
+                held from <span id="out-duration" class="fill-data"></span>.
                 <br><br>
                 We appreciate his/her active involvement and outstanding performance.
             </div>
 
             <div class="cert-footer">
                 <div class="sign-box">
+                    <img id="out-coord-img" class="sign-img" alt="Coordinator Sign">
                     <div class="sign-line"></div>
                     <div class="sign-title">EVENT COORDINATOR</div>
                 </div>
                 <div class="sign-box">
+                    <img id="out-principal-img" class="sign-img" alt="Principal Sign">
                     <div class="sign-line"></div>
                     <div class="sign-title">PRINCIPAL</div>
                 </div>
@@ -349,20 +374,46 @@
 </div>
 
 <script>
+    function parseDriveUrl(input) {
+        if (!input) return '';
+        input = input.trim();
+        if (input.includes('id=')) {
+            return input.split('id=')[1].split('&')[0];
+        } else if (input.includes('/d/')) {
+            return input.split('/d/')[1].split('/')[0];
+        }
+        return input;
+    }
+
     function generateCertificate(e) {
         e.preventDefault();
         
-        let nameVal = document.getElementById('in-name').value;
-        if(!nameVal.toLowerCase().startsWith('mr') && !nameVal.toLowerCase().startsWith('ms')) {
-            nameVal = 'Mr/Ms ' + nameVal;
-        }
-        
-        document.getElementById('out-name').innerText = nameVal;
+        document.getElementById('out-name').innerText = document.getElementById('in-name').value;
         document.getElementById('out-father').innerText = document.getElementById('in-father').value.toUpperCase();
         document.getElementById('out-class').innerText = document.getElementById('in-class').value;
         document.getElementById('out-roll').innerText = document.getElementById('in-roll').value;
         document.getElementById('out-programme').innerText = `"${document.getElementById('in-programme').value}"`;
         document.getElementById('out-duration').innerText = document.getElementById('in-duration').value;
+
+        // Signature Images Handling
+        let coordId = parseDriveUrl(document.getElementById('in-coord-sign').value);
+        let principalId = parseDriveUrl(document.getElementById('in-principal-sign').value);
+
+        let coordImg = document.getElementById('out-coord-img');
+        if (coordId) {
+            coordImg.src = `https://drive.google.com/thumbnail?id=${coordId}&sz=w300`;
+            coordImg.style.display = 'block';
+        } else {
+            coordImg.style.display = 'none';
+        }
+
+        let principalImg = document.getElementById('out-principal-img');
+        if (principalId) {
+            principalImg.src = `https://drive.google.com/thumbnail?id=${principalId}&sz=w300`;
+            principalImg.style.display = 'block';
+        } else {
+            principalImg.style.display = 'none';
+        }
 
         Swal.fire({
             icon: 'success',
